@@ -79,5 +79,5 @@ function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | nul
     return result.next
 }
 
-export { ListNode, addTwoNumbers }
+export { addTwoNumbers }
 ```
