@@ -29,7 +29,9 @@ Given a string `s`, find the length of the **longest** **substring** without rep
 
 **Output:** 3
 
-**Explanation:** The answer is "wke", with the length of 3.
+**Explanation:**
+
+The answer is "wke", with the length of 3.
 
 Notice that the answer must be a substring, "pwke" is a subsequence and not a substring. 
 
@@ -46,7 +48,6 @@ function lengthOfLongestSubstring(s: string): number {
     let maxLength = 0
     let length = 0
     let start = 0
-
     for (let i = 0; i < s.length; i++) {
         const char = s[i]
         if (hash[char] !== undefined && hash[char] >= start) {
