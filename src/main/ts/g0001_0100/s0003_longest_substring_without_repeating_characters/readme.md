@@ -44,21 +44,27 @@ Notice that the answer must be a substring, "pwke" is a subsequence and not a su
 
 ```typescript
 function lengthOfLongestSubstring(s: string): number {
-    const hash: { [key: string]: number } = {}
-    let maxLength = 0
-    let length = 0
-    let start = 0
+    const lastIndices: number[] = new Array(256).fill(-1)
+    let maxLen: number = 0
+    let curLen: number = 0
+    let start: number = 0
     for (let i = 0; i < s.length; i++) {
-        const char = s[i]
-        if (hash[char] !== undefined && hash[char] >= start) {
-            start = hash[char] + 1
-            length = i - start
+        const cur: string = s.charAt(i)
+        const charCode: number = cur.charCodeAt(0)
+        if (lastIndices[charCode] < start) {
+            lastIndices[charCode] = i
+            curLen++
+        } else {
+            const lastIndex: number = lastIndices[charCode]
+            start = lastIndex + 1
+            curLen = i - start + 1
+            lastIndices[charCode] = i
         }
-        length++
-        hash[char] = i
-        maxLength = Math.max(maxLength, length)
+        if (curLen > maxLen) {
+            maxLen = curLen
+        }
     }
-    return maxLength
+    return maxLen
 }
 
 export { lengthOfLongestSubstring }
