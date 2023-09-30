@@ -30,30 +30,33 @@ Given a string `s`, return _the longest_ _palindromic_ _substring_ in `s`.
 
 ```typescript
 function longestPalindrome(s: string): string {
-    let max = 0
-    let res = ''
+    const newStr: string[] = new Array(s.length * 2 + 1)
+    newStr[0] = '#'
     for (let i = 0; i < s.length; i++) {
-        for (let j = i + 1; j <= s.length; j++) {
-            if (s.slice(i, j).length > max && isPalindrome(s.slice(i, j))) {
-                max = s.slice(i, j).length
-                res = s.slice(i, j)
-            }
+        newStr[2 * i + 1] = s.charAt(i)
+        newStr[2 * i + 2] = '#'
+    }
+    const dp: number[] = new Array(newStr.length)
+    let friendCenter: number = 0
+    let friendRadius: number = 0
+    let lpsCenter: number = 0
+    let lpsRadius: number = 0
+    for (let i = 0; i < newStr.length; i++) {
+        dp[i] =
+            friendCenter + friendRadius > i ? Math.min(dp[2 * friendCenter - i], friendCenter + friendRadius - i) : 1
+        while (i + dp[i] < newStr.length && i - dp[i] >= 0 && newStr[i + dp[i]] === newStr[i - dp[i]]) {
+            dp[i]++
+        }
+        if (friendCenter + friendRadius < i + dp[i]) {
+            friendCenter = i
+            friendRadius = dp[i]
+        }
+        if (lpsRadius < dp[i]) {
+            lpsCenter = i
+            lpsRadius = dp[i]
         }
     }
-    return res
-}
-
-const isPalindrome = (s: string): boolean => {
-    let i = 0
-    let j = s.length - 1
-    while (i < j) {
-        if (s[i] !== s[j]) {
-            return false
-        }
-        i++
-        j--
-    }
-    return true
+    return s.substring((lpsCenter - lpsRadius + 1) / 2, (lpsCenter + lpsRadius - 1) / 2)
 }
 
 export { longestPalindrome }

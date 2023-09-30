@@ -43,19 +43,16 @@ You can return the answer in any order.
 ## Solution
 
 ```typescript
-interface ITemp {
-    [key: number]: number
-}
-
 function twoSum(nums: number[], target: number): number[] {
-    const temp: ITemp = {}
+    const indexMap: Map<number, number> = new Map()
     for (let i = 0; i < nums.length; i++) {
-        const tag = target - nums[i]
-        if (temp[tag] >= 0) {
-            return [temp[tag], i]
+        const requiredNum: number = target - nums[i]
+        if (indexMap.has(requiredNum)) {
+            return [indexMap.get(requiredNum)!, i]
         }
-        temp[nums[i]] = i
+        indexMap.set(nums[i], i)
     }
+    return [-1, -1]
 }
 
 export { twoSum }
