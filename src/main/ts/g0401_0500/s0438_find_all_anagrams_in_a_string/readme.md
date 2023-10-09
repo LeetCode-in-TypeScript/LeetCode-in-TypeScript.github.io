@@ -48,7 +48,6 @@ function findAnagrams(s: string, p: string): number[] {
     const res: number[] = []
     let i: number = 0
     let j: number = 0
-
     while (i < s.length) {
         const idx: number = s.charCodeAt(i) - 'a'.charCodeAt(0)
         // Add the new character
@@ -58,7 +57,6 @@ function findAnagrams(s: string, p: string): number[] {
             map[s.charCodeAt(j++) - 'a'.charCodeAt(0)]++
         }
         let finish: boolean = true
-
         for (let k = 0; k < 26; k++) {
             // If it is not an anagram of string p
             if (map[k] !== 0) {
@@ -66,7 +64,6 @@ function findAnagrams(s: string, p: string): number[] {
                 break
             }
         }
-
         if (i >= p.length - 1 && finish) {
             res.push(j)
         }
