@@ -53,7 +53,6 @@ The next state is created by applying the above rules simultaneously to every ce
 function gameOfLife(board: number[][]): void {
     const m = board.length
     const n = board[0].length
-
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
             const liveNeighbors = countLives(board, i, j, m, n)
@@ -64,7 +63,6 @@ function gameOfLife(board: number[][]): void {
             }
         }
     }
-
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
             board[i][j] >>= 1
